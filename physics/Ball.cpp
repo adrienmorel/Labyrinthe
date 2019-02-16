@@ -104,15 +104,13 @@ void Ball::draw(){
 
 void Ball::updatePosition() {
 
-    double max = this->r + 0.01;
-
     vx += ax;
     vy += ay;
 
-    if(vx > max) vx = max;
-    if(vx < -max) vx = -max;
-    if(vy > max) vy = max;
-    if(vy < -max) vy = -max;
+    if(vx > 0.03) vx = 0.03;
+    if(vx < -0.03) vx = -0.03;
+    if(vy > 0.03) vy = 0.03;
+    if(vy < -0.03) vy = -0.03;
 
     if(nextX > 1.0f) nextX = 1.0f;
     if(nextX < 0.0f) nextX = 0.0f;
@@ -125,8 +123,6 @@ void Ball::updatePosition() {
 
     nextX += vx;
     nextY += vy;
-
-
 
 
 }

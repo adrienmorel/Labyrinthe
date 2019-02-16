@@ -394,14 +394,14 @@ DWORD WINAPI getMuseResult(LPVOID lpProgress) {
 
             //différence de temps entre la réception du signal sur l'android et la réception de la donnée sur le laby
 
-             if(diff < 0){
-                 diff = now - time;
-             } else {
-                 diff = (diff + now - time)/2;
-             }
+            if(diff < 0){
+                diff = now - time;
+            } else {
+                diff = (diff + now - time)/2;
+            }
 
-             //cout << diff;
-             //cout << '\n';
+            //cout << diff;
+            //cout << '\n';
 
             progress = (unsigned int)atoi(progress_str.c_str());
             //Sleep(300);

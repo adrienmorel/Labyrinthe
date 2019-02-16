@@ -2,9 +2,9 @@
 #define AMAZED_OPENGL_H
 
 #ifdef __APPLE__
-	#include <GLUT/glut.h>
+#include <GLUT/glut.h>
 #else
-	#include <GL/freeglut.h>
+#include <GL/freeglut.h>
 #endif
 
 #include "../stream/CameraStream.h"

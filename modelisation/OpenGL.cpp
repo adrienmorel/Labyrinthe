@@ -1,7 +1,7 @@
 #ifdef __APPLE__
-    #include <GLUT/glut.h>
+#include <GLUT/glut.h>
 #else
-    #include <GL/freeglut.h>
+#include <GL/freeglut.h>
 #endif
 
 #include <opencv2/core/core.hpp>
@@ -35,9 +35,9 @@ OpenGL::OpenGL(GlutMaster * glutMaster, int setWidth, int setHeight, int setInit
 
     this->anaglyph = anaglyph;
 
-    this->textMaze = imread(assetsPath + "assets/mazeGround.png"); ///texture du sol du labyrinthe
-    this->textWall = imread(assetsPath + "assets/mazeWall.png"); ///texture du mur du labyrinthe
-    this->textFlag = imread(assetsPath + "assets/mazeFlag.png"); ///texture du drapeau d'arrivée
+    this->textMaze = cv::imread(assetsPath + "assets/mazeGround.png"); ///texture du sol du labyrinthe
+    this->textWall = cv::imread(assetsPath + "assets/mazeWall.png"); ///texture du mur du labyrinthe
+    this->textFlag = cv::imread(assetsPath + "assets/mazeFlag.png"); ///texture du drapeau d'arrivée
 
     if(anaglyph){
         this->textCam = imread(assetsPath + "assets/noir.jpg"); /// fond noir
@@ -100,7 +100,7 @@ void OpenGL::CallBackDisplayFunc(){
 
         //APPLY A FILTER
         cv::Mat filtre = this->textCam(cv::Rect(0, 0, this->textCam.cols, this->textCam.rows));
-        cv::Mat color(filtre.size(), CV_8UC3, vert);
+        cv::Mat color(filtre.size(), CV_8UC3, rouge);
         int val = (int)valMax - this->progress;
         double alpha = 1 - ((alphaMax - alphaMin)/(valMax - valMin)) * val + alphaMin;
         cv::addWeighted(color, alpha, filtre, 1.0 - alpha , 0.0, filtre);
@@ -116,7 +116,7 @@ void OpenGL::CallBackDisplayFunc(){
 
         //APPLY A FILTER
         cv::Mat filtre = this->textCam(cv::Rect(0, 0, this->textCam.cols, this->textCam.rows));
-        cv::Mat color(filtre.size(), CV_8UC3, rouge);
+        cv::Mat color(filtre.size(), CV_8UC3, vert);
         int val = (int)valMax - this->progress;
         double alpha = ((alphaMax - alphaMin)/(valMax - valMin)) * val + alphaMin;
         cv::addWeighted(color, alpha, filtre, 1.0 - alpha , 0.0, filtre);
@@ -124,13 +124,13 @@ void OpenGL::CallBackDisplayFunc(){
 
     rectangle(   this->textCam ,
                  Point2f (startXProgress ,  startYProgress),
-                 Point2f (startXProgress + ((float)this->progress*widthProgress)/100 , startYProgress + heighProgress ),
+                 Point2f (startXProgress + ((float)((100-this->progress)*widthProgress))/100 , startYProgress + heighProgress ),
                  vert,
                  - 1 ,
                  8  );
 
     rectangle(   this->textCam ,
-                 Point2f (startXProgress + ((float)this->progress*widthProgress)/100,  startYProgress),
+                 Point2f (startXProgress + ((float)((100-this->progress)*widthProgress))/100,  startYProgress),
                  Point2f (startXProgress + widthProgress , startYProgress + heighProgress),
                  rouge,
                  - 1 ,
